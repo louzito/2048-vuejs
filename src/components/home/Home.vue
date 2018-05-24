@@ -24,7 +24,7 @@ export default {
   methods: {
      myMethod: function (event) {
           let touchOk = [38,39,40,37]
-          if(touchOk.indexOf(event.which)) {
+          if(touchOk.includes(event.which)) {
             switch (event.which) {
               case 37:
                 this.board.move('left')
