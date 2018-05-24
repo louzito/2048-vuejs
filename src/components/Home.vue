@@ -10,12 +10,6 @@
         </div>
       </div>
     </div>
-    <div>
-      <button>Haut</button>
-      <button>Bas</button>
-      <button>Gauche</button>
-      <button>Droite</button>
-    </div>
   </div>
 </template>
 
@@ -25,17 +19,40 @@ import board from '@/utils/board.js'
 
 export default {
   name: 'Home',
-  created() {
-      board.init(4)
-
-      console.log(board.squares)
-      this.boardGame = board.squares
-      console.log(this.boardGame)
+  methods: {
+     myMethod: function (event) {
+          var expr = event.which;
+          switch (expr) {
+              case 37:
+                board.move('left')
+                break;
+              case 38:
+                board.move('up')
+                break;
+              case 39:
+                board.move('right')
+                break;
+              case 40:
+                board.move('down')
+                break;
+              default:
+                break;
+            }
+          this.boardGame = board.squares
+          console.log(expr)
+     }
   },
   data () {
     return {
+      keypressed: '',
       boardGame: []
     }
+  },
+  created() {
+      board.init(4)
+      this.boardGame = board.squares
+      console.log(this.boardGame)
+      window.addEventListener('keyup', this.myMethod)    
   }
 }
 </script>
@@ -44,8 +61,8 @@ export default {
 <style scoped>
 .jeu {text-align: center;}
 #board-game {display: inline-block;padding: 30px;margin: 20px auto;background:#000000}
-#board-game .board-line {font-size: 0;}
-#board-game .board-tile {display: inline-block;width: 100px;height: 100px;line-height: 100px;font-size: 50px;color: #000;font-weight: bold;background: #FFF;border: 1px solid lightgrey;border-radius: 5px;text-align: center;margin: 2px;vertical-align: top;}
+#board-game .board-line {font-size: 0;display:inline-block;vertical-align: top;}
+#board-game .board-tile {display: block;width: 100px;height: 100px;line-height: 100px;font-size: 50px;color: #000;font-weight: bold;background: #FFF;border: 1px solid lightgrey;border-radius: 5px;text-align: center;margin: 2px;}
 #board-game .board-tile.bt2 {background: #E1E6FA;}
 #board-game .board-tile.bt4 {background: #C4D7ED;}
 #board-game .board-tile.bt8 {background: #ABC8E2;}
