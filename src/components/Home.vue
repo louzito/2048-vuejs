@@ -1,15 +1,9 @@
 <template>
-  <div class="jeu">
+  <div class="jeu" @keyup.space="method()">
     <div id="header-game">
         Votre score :
     </div>
     <div id="board-game">
-    </div>
-    <div>
-      <button>Haut</button>
-      <button>Bas</button>
-      <button>Gauche</button>
-      <button>Droite</button>
     </div>
   </div>
 </template>
@@ -20,18 +14,42 @@ import board from '@/utils/board.js'
 
 export default {
   name: 'Home',
+  methods: {
+     myMethod: function (event) {
+          var expr = event.which;
+          switch (expr) {
+              case 37:
+                board.move('left')
+                console.log('gauche')
+                break;
+              case 38:
+                board.move('up')
+                console.log('haut')
+                break;
+              case 39:
+                board.move('right')
+                console.log('droite')
+                break;
+              case 40:
+                board.move('down')
+                console.log('bas')
+                break;
+              default:
+                console.log('nop');
+            }
+          console.log(board)
+          console.log(board.squares)
+
+
+        }
+  },
   created() {
       board.init(4)
-
-      console.log(board.squares)
-      // la fonction move ne renvoie rien, elle re-calcule juste
-      console.log(board.move('up'))
-      console.log(board.move('down'))
-
-      console.log(board.squares)        
+       window.addEventListener('keyup', this.myMethod)      
   },
   data () {
     return {
+      keypressed: '',
       boardGame: {}
     }
   }
