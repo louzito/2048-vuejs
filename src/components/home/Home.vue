@@ -43,8 +43,8 @@ export default {
           }
      },
      refreshBoard: function() {
-       board.init(4)
-       this.board= board
+       this.board.init(4)
+       this.$forceUpdate()
      }
   },
   data () {
