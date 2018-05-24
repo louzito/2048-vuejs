@@ -2,9 +2,10 @@
   <div class="jeu">
     <div id="header-game">
         Votre score : {{ board.points }}
+        <span @click="refreshBoard"  class="refresh-btn">Rejouer</span>
     </div>
     <div id="board-game">
-      <div v-for="boardLine in boardGame" class="board-line">
+      <div v-for="boardLine in board.squares" class="board-line">
         <div v-for="boardTile in boardLine" :class="'board-tile bt'+boardTile">
           {{ boardTile == 0 ? '' : boardTile }}
         </div>
@@ -38,41 +39,23 @@ export default {
                 this.board.move('down')
                 break;
             }
-          this.boardGame = this.board.squares
-          
-          //var html = ''
-          //  this.boardGame.forEach(boardLine => {
-          //    html += '<div class="board-line">'
-          //    boardLine.forEach(boardTile => {
-          //      html += '<div class="board-tile bt'+boardTile+'">'
-          //            + ((boardTile == 0) ? '' : boardTile)
-          //            + '</div>'
-          //    })
-          //    html += '</div>'
-          //  });
-          // document.getElementById('board-game').innerHTML = html
-
-            store.commit('setBoard', this.boardGame)
             this.$forceUpdate()
           }
+     },
+     refreshBoard: function() {
+       board.init(4)
+       this.board= board
      }
   },
   data () {
     return {
-      boardGame: [],
       board: {}
     }
   },
   created() {
       this.board = board
       this.board.init(4)
-      console.log('test this board')
-      console.log(this.board)
-      this.boardGame = this.board.squares
-      console.log('test this boardGame')
-      console.log(this.boardGame)
-      console.log('fin test this boardGame')
-      store.commit('setBoard', this.boardGame)
+      store.commit('setBoard', this.board)
       window.addEventListener('keyup', this.myMethod)    
   }
 }
