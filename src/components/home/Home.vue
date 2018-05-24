@@ -2,8 +2,9 @@
   <div class="jeu">
     <div id="header-game">
         Votre score :
+
     </div>
-    <div id="board-game" @refresh="myMethod">
+    <div id="board-game">
       <div v-for="boardLine in boardGame" class="board-line">
         <div v-for="boardTile in boardLine" :class="'board-tile bt'+boardTile">
           {{ boardTile == 0 ? '' : boardTile }}
@@ -16,9 +17,15 @@
 <script>
 
 import board from '@/utils/board.js'
+import store from '@/utils/store.js'
 
 export default {
   name: 'Home',
+  //computed: {
+  //      board() {
+  //          return store.getters.getBoard
+  //      }
+  //  },
   methods: {
      myMethod: function (event) {
           var expr = event.which;
@@ -42,9 +49,16 @@ export default {
           console.log(expr)
             console.log(this.boardGame)
             console.log(this.board.squares)
-
-
+            
+            
+            //document.getElementById('board-game').innerHTML = ''
+          console.log()
             this.boardGame = this.board.squares
+
+            store.commit('setBoard', this.boardGame)
+            //this.$router.push({path: '/'})
+                    // on avance dans la stack vers l'autre page
+              //      this.$router.forward()
             //this.$emit('refresh')
 
             //return this.boardGame
@@ -66,6 +80,7 @@ export default {
       console.log('test this boardGame')
       console.log(this.boardGame)
       console.log('fin test this boardGame')
+      store.commit('setBoard', this.boardGame)
       window.addEventListener('keyup', this.myMethod)    
   }
 }
