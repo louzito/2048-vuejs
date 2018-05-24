@@ -5,14 +5,34 @@
     </div>
     <div id="board-game">
     </div>
+    <div>
+      <button>Haut</button>
+      <button>Bas</button>
+      <button>Gauche</button>
+      <button>Droite</button>
+    </div>
   </div>
 </template>
 
 <script>
+
+import board from '@/utils/board.js'
+
 export default {
   name: 'Home',
+  created() {
+      board.init(4)
+
+      console.log(board.squares)
+      // la fonction move ne renvoie rien, elle re-calcule juste
+      console.log(board.move('up'))
+      console.log(board.move('down'))
+
+      console.log(board.squares)        
+  },
   data () {
     return {
+      boardGame: {}
     }
   }
 }
