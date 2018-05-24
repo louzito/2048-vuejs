@@ -3,11 +3,7 @@
     <div id="header-game">
         Votre score :
     </div>
-<<<<<<< HEAD
-    <div id="board-game">
-=======
     <div id="board-game" @refresh="myMethod">
->>>>>>> jonathan
       <div v-for="boardLine in boardGame" class="board-line">
         <div v-for="boardTile in boardLine" :class="'board-tile bt'+boardTile">
           {{ boardTile == 0 ? '' : boardTile }}
@@ -28,19 +24,6 @@ export default {
           var expr = event.which;
           switch (expr) {
               case 37:
-<<<<<<< HEAD
-                board.move('left')
-                break;
-              case 38:
-                board.move('up')
-                break;
-              case 39:
-                board.move('right')
-                break;
-              case 40:
-                board.move('down')
-=======
-
                 this.board.move('left')
                 break;
               case 38:
@@ -51,15 +34,12 @@ export default {
                 break;
               case 40:
                 this.board.move('down')
->>>>>>> jonathan
                 break;
               default:
                 break;
             }
-<<<<<<< HEAD
           this.boardGame = board.squares
           console.log(expr)
-=======
             console.log(this.boardGame)
             console.log(this.board.squares)
 
@@ -69,21 +49,10 @@ export default {
 
             //return this.boardGame
 
->>>>>>> jonathan
      }
   },
   data () {
     return {
-<<<<<<< HEAD
-      keypressed: '',
-      boardGame: []
-    }
-  },
-  created() {
-      board.init(4)
-      this.boardGame = board.squares
-      console.log(this.boardGame)
-=======
       boardGame: [],
       board: {}
     }
@@ -97,7 +66,6 @@ export default {
       console.log('test this boardGame')
       console.log(this.boardGame)
       console.log('fin test this boardGame')
->>>>>>> jonathan
       window.addEventListener('keyup', this.myMethod)    
   }
 }
