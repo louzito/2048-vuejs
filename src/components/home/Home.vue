@@ -4,7 +4,11 @@
         Votre score : {{ board.points }}
         <span @click="refreshBoard"  class="refresh-btn">Rejouer</span>
     </div>
-    <div id="board-game">
+    <div v-if="board.over"> 
+          Vous avez perdu
+          <button>Envoyer votre score</button>
+      </div>
+    <div v-else id="board-game">
       <div v-for="boardLine in board.squares" class="board-line">
         <div v-for="boardTile in boardLine" :class="'board-tile bt'+boardTile">
           {{ boardTile == 0 ? '' : boardTile }}
@@ -21,6 +25,11 @@ import store from '@/utils/store.js'
 
 export default {
   name: 'Home',
+  computed: {
+    board() {
+      return store.getters.getBoard
+    }
+  },
   methods: {
      myMethod: function (event) {
           let touchOk = [38,39,40,37]
@@ -40,6 +49,7 @@ export default {
                 break;
             }
             this.$forceUpdate()
+            store.commit('setBoard', this.board)
           }
      },
      refreshBoard: function() {
