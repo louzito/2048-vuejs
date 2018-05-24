@@ -40,18 +40,21 @@ export default {
                 break;
             }
           this.boardGame = this.board.squares
-          var html = ''
-            this.boardGame.forEach(boardLine => {
-              html += '<div class="board-line">'
-              boardLine.forEach(boardTile => {
-                html += '<div class="board-tile bt'+boardTile+'">'
-                      + ((boardTile == 0) ? '' : boardTile)
-                      + '</div>'
-              })
-              html += '</div>'
-            });
-            document.getElementById('board-game').innerHTML = html
+          
+          //var html = ''
+          //  this.boardGame.forEach(boardLine => {
+          //    html += '<div class="board-line">'
+          //    boardLine.forEach(boardTile => {
+          //      html += '<div class="board-tile bt'+boardTile+'">'
+          //            + ((boardTile == 0) ? '' : boardTile)
+          //            + '</div>'
+          //    })
+          //    html += '</div>'
+          //  });
+          // document.getElementById('board-game').innerHTML = html
+
             store.commit('setBoard', this.boardGame)
+            this.$forceUpdate()
           }
      }
   },
