@@ -1,10 +1,11 @@
 <template>
   <div class="jeu">
+    <init v-if="!nickname" ></init>
     <div id="header-game">
         Votre score : {{ board.points }}
         <span @click="refreshBoard"  class="refresh-btn">Rejouer</span>
     </div>
-    <div v-if="board.over"> 
+    <div v-if="board.over">
           Vous avez perdu
           <button>Envoyer votre score</button>
       </div>
@@ -22,12 +23,17 @@
 
 import board from '@/utils/board.js'
 import store from '@/utils/store.js'
+import Init from '@/components/init/Init'
 
 export default {
   name: 'Home',
+  components: { Init },
   computed: {
     board() {
       return store.getters.getBoard
+    },
+    nickname() {
+      return store.getters.getNickname
     }
   },
   methods: {
@@ -66,7 +72,7 @@ export default {
       this.board = board
       this.board.init(4)
       store.commit('setBoard', this.board)
-      window.addEventListener('keyup', this.myMethod)    
+      window.addEventListener('keyup', this.myMethod)
   }
 }
 </script>
