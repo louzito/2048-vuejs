@@ -3,7 +3,7 @@
     <div id="header-game">
         Votre score :
     </div>
-    <div id="board-game" @refresh="myMethod">
+    <div id="board-game">
       <div v-for="boardLine in boardGame" class="board-line">
         <div v-for="boardTile in boardLine" :class="'board-tile bt'+boardTile">
           {{ boardTile == 0 ? '' : boardTile }}
@@ -38,17 +38,17 @@ export default {
               default:
                 break;
             }
-          this.boardGame = board.squares
-          console.log(expr)
-            console.log(this.boardGame)
-            console.log(this.board.squares)
-
-
-            this.boardGame = this.board.squares
-            //this.$emit('refresh')
-
-            //return this.boardGame
-
+            var html = ''
+            this.board.squares.forEach(boardLine => {
+              html += '<div class="board-line">'
+              boardLine.forEach(boardTile => {
+                html += '<div class="board-tile bt'+boardTile+'>'
+                      + ((boardTile == 0) ? '' : boardTile)
+                      + '</div>'
+              })
+              html += '</div>'
+            });
+            console.log(html)
      }
   },
   data () {
@@ -60,12 +60,7 @@ export default {
   created() {
       this.board = board
       this.board.init(4)
-      console.log('test this board')
-      console.log(this.board)
       this.boardGame = this.board.squares
-      console.log('test this boardGame')
-      console.log(this.boardGame)
-      console.log('fin test this boardGame')
       window.addEventListener('keyup', this.myMethod)    
   }
 }
