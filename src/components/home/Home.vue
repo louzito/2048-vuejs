@@ -1,8 +1,7 @@
 <template>
   <div class="jeu">
     <div id="header-game">
-        Votre score :
-
+        Votre score : {{ board.points }}
     </div>
     <div id="board-game">
       <div v-for="boardLine in boardGame" class="board-line">
