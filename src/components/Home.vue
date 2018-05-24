@@ -3,7 +3,12 @@
     <div id="header-game">
         Votre score :
     </div>
-    <div id="board-game">
+    <div id="board-game" @refresh="myMethod">
+      <div v-for="boardLine in boardGame" class="board-line">
+        <div v-for="boardTile in boardLine" :class="'board-tile bt'+boardTile">
+          {{ boardTile == 0 ? '' : boardTile }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -19,39 +24,48 @@ export default {
           var expr = event.which;
           switch (expr) {
               case 37:
-                board.move('left')
-                console.log('gauche')
+
+                this.board.move('left')
                 break;
               case 38:
-                board.move('up')
-                console.log('haut')
+                this.board.move('up')
                 break;
               case 39:
-                board.move('right')
-                console.log('droite')
+                this.board.move('right')
                 break;
               case 40:
-                board.move('down')
-                console.log('bas')
+                this.board.move('down')
                 break;
               default:
                 console.log('nop');
             }
-          console.log(board)
-          console.log(board.squares)
+            console.log(this.boardGame)
+            console.log(this.board.squares)
 
 
-        }
-  },
-  created() {
-      board.init(4)
-       window.addEventListener('keyup', this.myMethod)      
+            this.boardGame = this.board.squares
+            //this.$emit('refresh')
+
+            //return this.boardGame
+
+     }
   },
   data () {
     return {
-      keypressed: '',
-      boardGame: {}
+      boardGame: [],
+      board: {}
     }
+  },
+  created() {
+      this.board = board
+      this.board.init(4)
+      console.log('test this board')
+      console.log(this.board)
+      this.boardGame = this.board.squares
+      console.log('test this boardGame')
+      console.log(this.boardGame)
+      console.log('fin test this boardGame')
+      window.addEventListener('keyup', this.myMethod)    
   }
 }
 </script>
