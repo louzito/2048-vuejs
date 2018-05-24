@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <h1>Bienvenue sur le jeu du 2048</h1>
     <router-view/>
   </div>
 </template>
