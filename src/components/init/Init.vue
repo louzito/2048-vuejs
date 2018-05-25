@@ -14,6 +14,11 @@ export default {
   methods: {
     init() {
       store.commit('setNickname', this.nickname)
+      let dateGame = {
+        end: null,
+        start: new Date()
+      }
+      store.commit('setDateGame', dateGame)
     }
   },
   data() {

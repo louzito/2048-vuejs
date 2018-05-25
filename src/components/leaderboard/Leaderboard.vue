@@ -3,7 +3,8 @@
         <div v-if="nickname" class="info-last game">
           <h2>Dernière partie</h2>
           Player: {{ nickname }}<br>
-          <span v-if="score">Score : {{ score }} points</span>
+          <span v-if="score">Score : {{ score }} points</span><br>
+          <span v-if="durationGame">en {{ durationGame }} sec</span><br>
         </div>
         <router-link to="/">Refaire une partie</router-link>
         <h2>Liste des scores</h2>
@@ -23,12 +24,13 @@ export default {
       let boardPrevGame = store.getters.getBoard
       this.nickname = store.getters.getNickname
       this.score = (boardPrevGame) ? boardPrevGame.points : null
+      this.durationGame = store.getters.getDurationGame
       if (boardPrevGame && boardPrevGame.over) {
-        console.log('envoi du score')
-        /*http
-          .get(store.getters.getNickname + '/' + boardPrevGame.points + '/' + this.score.time)
+        
+        http
+          .get(store.getters.getNickname + '/' + this.score + '/' + this.durationGame)
           .then(response => {})
-          .catch(error => console.log(error))*/
+          .catch(error => console.log(error))
       }
       http
         .get('json')
@@ -44,6 +46,7 @@ export default {
       return {
         nickname: null,
         score: null,
+        durationGame: null,
         scores: { nickname: '', score: '', time: '' }
       }
     }
