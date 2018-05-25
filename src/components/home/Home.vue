@@ -82,7 +82,7 @@ export default {
        store.commit('setBoard', this.board)
        // On reset la date au moment au on rejoue.
        let dateGame = {
-          start: null,
+          start: new Date(),
           end: null
         }
         // On met a jour le store
