@@ -47,4 +47,25 @@ li {
 #board-game .board-tile.bt1024 {background: #183152;color: #FFF;}
 #board-game .board-tile.bt2048 {background: #0F1E33;color: #FFF;}
 #board-game .board-tile.bt4096 {background: #08111C;color: #FFF;}
+#header-game .info-game, #header-game .refresh-btn { display: inline-block; vertical-align: top; }
+#header-game .refresh-btn { background: #000; color: #FFF; font-weight: bold; text-transform: uppercase; padding: 10px; margin-left:  50px; cursor: pointer;}
+.game-over-form {
+  width: 400px;
+  padding: 30px;
+  background: #000;
+  margin: 70px auto;
+  color: #FFF;
+}
+.game-over-form button {
+  display: block;
+  margin: 10px auto;
+  height: 40px;
+  width: 250px;
+  text-transform: uppercase;
+  font-weight: bold;
+  background: #528ABF;
+  color: #FFF;
+  border: 0;
+  cursor: pointer;
+}
 </style>
