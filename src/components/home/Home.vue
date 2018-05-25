@@ -7,7 +7,7 @@
           Player : {{ nickname }}<br>
           Votre score : {{ board.points }}<br>
         </div>
-        <span @click="refreshBoard"  class="refresh-btn">Rejouer</span>
+        <span @click="refreshBoard"  class="refresh-btn" id="refreshBtn">Rejouer</span>
 
       </div>
       <div v-if="board.over" class="game-over-form">
@@ -21,6 +21,7 @@
           </div>
         </div>
       </div>
+      <autoplay v-if="autoplay" :board="board"></autoplay>
     </div>
   </div>
 </template>
@@ -30,16 +31,20 @@
 import board from '@/utils/board.js'
 import store from '@/utils/store.js'
 import Init from '@/components/init/Init'
+import Autoplay from '@/components/autoplay/Autoplay'
 
 export default {
   name: 'Home',
-  components: { Init },
+  components: { Init, Autoplay },
   computed: {
     nickname() {
       return store.getters.getNickname
     },
     duration() {
       return store.getters.getDurationGame
+    },
+    autoplay() {
+      return store.getters.getAutoplay
     }
   },
   methods: {
@@ -93,6 +98,9 @@ export default {
      sendScore: function () {
        this.$router.push({path: '/leaderboard'})
        this.$router.forward()
+     },
+     autoplayFunc: function() {
+       console.log('ok')
      }
   },
   data () {

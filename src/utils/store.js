@@ -10,7 +10,8 @@ const store = new Vuex.Store({
         dateGame: {
             start: null,
             end: null
-        }
+        },
+        autoplay: false
     },
     getters: {
         getBoard(state) {
@@ -31,6 +32,9 @@ const store = new Vuex.Store({
             let result = Math.abs(dif)
             return result
         },
+        getAutoplay(state) {
+            return state.autoplay
+        }
     },
     mutations: {
         setBoard(state, board) {
@@ -42,6 +46,9 @@ const store = new Vuex.Store({
         setDateGame(state, date) {
             state.dateGame = date
         },
+        setAutoplay(state, autoplayState) {
+            state.autoplay = autoplayState
+        }
     }
 })
 

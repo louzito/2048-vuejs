@@ -2,6 +2,7 @@
   <div class="player-form">
     <input v-model="nickname" placeholder="Nom du joueur"/>
     <button @click="init" type="button">Jouer</button>
+    <button @click="initAutoplay" type="button">Autoplay</button>
     <p v-if="error">{{ error }}</p>
   </div>
 </template>
@@ -19,6 +20,15 @@ export default {
         start: new Date()
       }
       store.commit('setDateGame', dateGame)
+    },
+    initAutoplay() {
+      store.commit('setNickname', '[AI] Lou')
+      let dateGame = {
+        end: null,
+        start: new Date()
+      }
+      store.commit('setDateGame', dateGame)
+      store.commit('setAutoplay', true)
     }
   },
   data() {
@@ -48,7 +58,7 @@ export default {
   }
   .player-form button {
     display: block;
-    margin: 0 auto;
+    margin: 0 auto 10px auto;
     height: 40px;
     width: 150px;
     text-transform: uppercase;
