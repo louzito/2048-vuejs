@@ -7,8 +7,23 @@
           <span v-if="durationGame">en {{ durationGame }} sec</span><br>
         </div>
         <router-link to="/">Refaire une partie</router-link>
-        <h2>Liste des scores</h2>
-        <score v-for="score in scores" :score="score" ></score>
+        <h1>Liste des scores</h1>
+
+        <h2>Top 5</h2>
+        <table class="table" id="leaderboard">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Nickname</th>
+              <th>Score</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <score v-for="(score, index) in scores" :score="score" :key="index" :index="index" ></score>
+          </tbody>
+        </table>
+        
     </div>
 </template>
 
@@ -36,9 +51,21 @@ export default {
         .get('json')
         .then(response => {
           this.scores = response.data
+          let fiveTop = []
+          let score2 = []
+
           this.scores.forEach((element, index) => {
             element.score = Number(element.score);
+
+            if (!isNaN(element.score) && Math.max(...score2) < element.score){
+              score2.push(element.score)
+              fiveTop.push(element)
+            }
+            
           })
+
+          this.scores = fiveTop.reverse()
+
         })
         .catch(error => this.error = JSON.parse(error.request.response)['error'])
     },
@@ -54,4 +81,28 @@ export default {
 </script>
 
 <style>
+
+
+#leaderboard {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#leaderboard td, #leaderboard th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#leaderboard tr:nth-child(even){background-color: #f2f2f2;}
+
+#leaderboard tr:hover {background-color: #ddd;}
+
+#leaderboard th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: black;
+    color: white;
+}
 </style>
