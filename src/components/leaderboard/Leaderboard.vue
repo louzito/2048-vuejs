@@ -1,9 +1,12 @@
 <template>
     <div>
-        <input v-model="score.nickname" placeholder="Enter your nickname">
-        <!-- {{ score.score }} -->
-        <p>Score : 100 points</p>
-        <button @click="sendScore">Send</button>
+        <div v-if="nickname" class="info-last game">
+          <h2>Dernière partie</h2>
+          Player: {{ nickname }}<br>
+          <span v-if="score">Score : {{ score }} points</span>
+        </div>
+        <router-link to="/">Refaire une partie</router-link>
+        <h2>Liste des scores</h2>
         <score v-for="score in scores" :score="score" ></score>
     </div>
 </template>
@@ -11,21 +14,22 @@
 <script>
 import http from '@/utils/http.js'
 import Score from '@/components/leaderboard/Score'
+import store from '@/utils/store.js'
 
 export default {
     name: 'Leaderboard',
     components: { Score },
-    methods: {
-      sendScore() {
-        this.score.time = new Date().toISOString()
-        http
-          // .post(this.score.nickname + '/' + this.score.score + '/' + time)
-          .get(this.score.nickname + '/100/' + this.score.time)
-          .then(response => {})
-          .catch(error => console.log(error))
-      }
-    },
     created() {
+      let boardPrevGame = store.getters.getBoard
+      this.nickname = store.getters.getNickname
+      this.score = (boardPrevGame) ? boardPrevGame.points : null
+      if (boardPrevGame && boardPrevGame.over) {
+        console.log('envoi du score')
+        /*http
+          .get(store.getters.getNickname + '/' + boardPrevGame.points + '/' + this.score.time)
+          .then(response => {})
+          .catch(error => console.log(error))*/
+      }
       http
         .get('json')
         .then(response => {
@@ -38,12 +42,12 @@ export default {
     },
     data() {
       return {
-        score: { nickname: '', score: '', time: '' },
+        nickname: null,
+        score: null,
         scores: { nickname: '', score: '', time: '' }
       }
     }
 }
-
 </script>
 
 <style>

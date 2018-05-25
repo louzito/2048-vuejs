@@ -11,7 +11,7 @@
       </div>
       <div v-if="board.over" class="game-over-form">
         Vous avez perdu :'(<br>
-        <button>Envoyer votre score</button>
+        <button @click="sendScore">Envoyer votre score</button>
       </div>
       <div v-else id="board-game">
         <div v-for="boardLine in board.squares" class="board-line">
@@ -66,6 +66,10 @@ export default {
      refreshBoard: function() {
        this.board.init(4)
        this.$forceUpdate()
+     },
+     sendScore: function () {
+       this.$router.push({path: '/leaderboard'})
+       this.$router.forward()
      }
   },
   data () {
