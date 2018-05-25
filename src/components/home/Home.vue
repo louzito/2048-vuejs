@@ -12,7 +12,7 @@
       </div>
       <div v-if="board.over" class="game-over-form">
         Vous avez perdu en {{ duration }} .sec :'(<br>
-        <button @click="sendScore">Envoyer votre score</button>
+        <button @click="sendScore" id="send-score-btn">Envoyer votre score</button>
       </div>
       <div v-else id="board-game">
         <div v-for="boardLine in board.squares" class="board-line">
@@ -100,7 +100,6 @@ export default {
        this.$router.forward()
      },
      autoplayFunc: function() {
-       console.log('ok')
      }
   },
   data () {

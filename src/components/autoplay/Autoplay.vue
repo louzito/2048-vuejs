@@ -8,16 +8,27 @@ export default {
   name: "Autoplay",
   props: ['board'],
   created () {
-    setTimeout(function () {
-        this.board.move('down')
-        this.board.move('left')
-        if (this.board.hasMoved) {
-            this.board.move('right')
+    var board = this.board
+    var arrayDir = [37,38,39,40]
+    var time = 1
+    function  movef () {
+      time += 1
+      setTimeout(function() {
+        var eventKey = new Event('keyup')
+        eventKey.which = arrayDir[Math.floor(Math.random()* 4)]
+        window.dispatchEvent(eventKey)
+        if (!board.over) {
+          movef()
+        } else {
+          setTimeout(function () {
+            var clickE = new Event('click')
+            var sendScoreBtn =  document.getElementById('send-score-btn')
+            sendScoreBtn.dispatchEvent(clickE)
+          }, 1000)
         }
-        if (this.board.hasMoved) {
-            this.board.move('up')
-        }
-    },2000);
+      }, time)
+    }
+    movef()
   },
   data() {
     return {

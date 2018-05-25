@@ -22,7 +22,7 @@ export default {
       store.commit('setDateGame', dateGame)
     },
     initAutoplay() {
-      store.commit('setNickname', '[AI] Lou')
+      store.commit('setNickname', '[AI] JonAxeLou')
       let dateGame = {
         end: null,
         start: new Date()
