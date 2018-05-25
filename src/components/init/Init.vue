@@ -1,7 +1,7 @@
 <template >
-  <div>
-    <input v-model="nickname" placeholder="Enter your nickname"/>
-    <button @click="init" type="button">Enter</button>
+  <div class="player-form">
+    <input v-model="nickname" placeholder="Nom du joueur"/>
+    <button @click="init" type="button">Jouer</button>
     <p v-if="error">{{ error }}</p>
   </div>
 </template>
@@ -26,4 +26,34 @@ export default {
 </script>
 
 <style>
+  .player-form {
+    width: 400px;
+    padding: 30px;
+    background: #000;
+    margin: 70px auto;
+  }
+  .player-form input {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    width: 250px;
+    margin: 10px auto;
+    padding: 0 0 0 10px;
+    border: 0;
+  }
+  .player-form button {
+    display: block;
+    margin: 0 auto;
+    height: 40px;
+    width: 150px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background: #528ABF;
+    color: #FFF;
+    border: 0;
+    cursor: pointer;
+  }
+  .player-form button:hover {
+    background: #60A2E0;
+  }
 </style>
